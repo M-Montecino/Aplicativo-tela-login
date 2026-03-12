@@ -1,29 +1,35 @@
 import { Link } from "expo-router";
 import { useState } from "react";
 import {
-  Alert,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
+    Alert,
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
 
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 
-export default function Index() {
+export default function SingUp() {
+  const [name, SetName] = useState("");
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
+  const [confirmPassword, SetConfimPassword] = useState("");
 
-  function handleSingIn() {
-    if (!email.trim() || !password.trim()) {
-      return Alert.alert("Entrar", "Favor preeencher todos os campos");
-    }
+  function handleRegister() {
+    if (
+      !name.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    )
+      return Alert.alert("Cadastrar", "Favor preeencher todos os campos");
 
-    Alert.alert("Bem-vindo", `Login realisado com: ${email}`);
+    Alert.alert("Bem-vindo", `Cadastro realisado com: ${email}`);
   }
 
   return (
@@ -36,32 +42,34 @@ export default function Index() {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.container}>
-          <Image source={require("@/assets/img1.jpg")} style={styles.images} />
+          <Image source={require("@/assets/img2.jpg")} style={styles.images} />
 
-          <Text style={styles.title}>Entrar</Text>
-          <Text style={styles.subtitle}>
-            Acesse sua conta com e-mail e senha
-          </Text>
+          <Text style={styles.title}>Cadastre-se</Text>
+          <Text style={styles.subtitle}>Crie sua conta com e-mail e senha</Text>
 
           <View>
+            <Input placeholder="Nome" onChangeText={SetName} />
             <Input
               placeholder="E-mail"
               keyboardType="email-address"
               onChangeText={SetEmail}
             />
-
             <Input
               placeholder="Senha"
               secureTextEntry
               onChangeText={SetPassword}
             />
-
-            <Button label="Entrar" onPress={handleSingIn} />
+            <Input
+              placeholder="Confirme sua senha"
+              secureTextEntry
+              onChangeText={SetConfimPassword}
+            />
+            <Button label="Cadastrar" onPress={handleRegister} />
           </View>
           <Text style={styles.footerText}>
-            Não tem conta?{" "}
-            <Link href={"/singup"} style={styles.footerLink}>
-              Cadastre-se aqui.
+            Já possuí conta?{" "}
+            <Link href={"/"} style={styles.footerLink}>
+              Entre aqui.
             </Link>
           </Text>
         </View>
